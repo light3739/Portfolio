@@ -14,7 +14,7 @@
         @keyframes scrollAnimation {
             0% {
                 opacity: 0;
-                transform: translateX(-50%);
+                transform: translateX(-49%);
                 filter: blur(5px);
             }
 
@@ -40,14 +40,13 @@
 <!-- About Section -->
 <section class="mb-12" hx-trigger="load">
     <!-- Horizontal Line -->
-    <div class="pt-10"></div>
+    <div class="pt-20"></div>
     <hr class="border-b-2 border-blue-500 w-5">
-
     <h1 class="text-3xl font-bold mb-4 text-blue-500">About</h1>
     <div class="flex items-center"> <!-- Centering items vertically -->
-        <!-- Picture -->
+
         <div class="w-1/2 flex justify-center picture-container animate" style="--order: var(--order-picture);">
-            <img src="https://www.svgrepo.com/show/373635/go-gopher.svg" alt="Go Gopher Image"
+            <img src="/static/go-gopher-svgrepo-com.svg" alt="Go Gopher Image"
                  class="max-h-96 max-w-96 object-cover rounded-md">
             <!-- Set maximum height and width, decrease size by limiting dimensions -->
         </div>
@@ -72,7 +71,7 @@
                 entry.target.classList.remove('animate'); // Remove animation class when element exits the viewport
             }
         });
-    }, { threshold: 0.5 }); // Callback will be invoked when 50% of the observed element is visible
+    }, {threshold: 0.5}); // Callback will be invoked when 50% of the observed element is visible
 
     let section = document.querySelector('.mb-12');
     observer.observe(section);

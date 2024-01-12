@@ -1,9 +1,40 @@
 <!-- header.html -->
 <div class="header bg-blue-500 p-4 shadow-md">
-    <div class="container mx-auto flex justify-end items-center">
-        <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition">About</button>
-        <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">Tools</button>
-        <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">Calculator</button>
-        <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">Contact</button>
+
+    <div class="container mx-auto flex items-center">
+        <img class="logo" src="/static/Go-Logo_White.svg" alt="Go Gopher Image">
+        <div class="ml-auto">
+            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition">Tools
+            </button>
+            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">About
+            </button>
+            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">
+                Calculator
+            </button>
+            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">
+                Contact
+            </button>
+        </div>
     </div>
 </div>
+<style>
+    /* style.css */
+    .logo {
+        max-height: 50px;
+    }
+
+    .container {
+        align-items: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        .logo {
+            max-height: 40px;
+            margin-right: 10px;
+        }
+
+        .header button {
+            font-size: 14px; /* Adjust this value as needed */
+        }
+    }
+</style>
