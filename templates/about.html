@@ -1,66 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Section</title>
-    <style>
-        :root {
-            --order-text: 1;
-            --order-picture: 2;
+    @keyframes scrollAnimation {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%);
+            filter: blur(5px);
         }
 
-        @keyframes scrollAnimation {
-            0% {
-                opacity: 0;
-                transform: translateX(-49%);
-                filter: blur(5px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-                filter: blur(0);
-            }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
         }
+    }
 
-        .animate {
-            animation: scrollAnimation 1.5s ease-out forwards;
-        }
+    .animation {
+        animation: scrollAnimation 0.5s ease-out forwards;
+    }
+</style>
 
-        .text-container,
-        .picture-container {
-            transition-delay: calc(100ms * var(--order));
-        }
-    </style>
-</head>
 
-<body>
-<!-- About Section -->
-<section class="mb-12" hx-trigger="load">
-    <!-- Horizontal Line -->
-    <div class="pt-20"></div>
-    <hr class="border-b-2 border-blue-500 w-5">
-    <h1 class="text-3xl font-bold mb-4 text-blue-500">About</h1>
-    <div class="flex items-center"> <!-- Centering items vertically -->
-
-        <div class="w-1/2 flex justify-center picture-container animate" style="--order: var(--order-picture);">
-            <img src="/static/go-gopher-svgrepo-com.svg" alt="Go Gopher Image"
-                 class="max-h-96 max-w-96 object-cover rounded-md">
-            <!-- Set maximum height and width, decrease size by limiting dimensions -->
-        </div>
-        <!-- Text -->
-        <div class="w-1/2 pl-4 justify-center text-container animate" style="--order: var(--order-text);">
-            <p class="text-gray-700 leading-relaxed text-center"> <!-- Center the text -->
-                <span class="block text-2xl font-bold mb-2">Hi, I'm Maksim</span>
-                A dedicated GoLang developer with a passion for crafting exceptional web applications. I specialize in
-                creating responsive and intuitive interfaces using HTMX and Tailwind CSS. My goal is to deliver clean
-                and efficient code that ensures a seamless user experience.
-            </p>
+<body class="bg-gray-800 text-gray-100">
+<div class="text-center w-full">
+    <h1 class="text-4xl lg:text-6xl animation" style="--order: 3;">About</h1>
+</div>
+<div class="max-w-screen-xl mt-24 px-8 grid gap-8 grid-cols-1 md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 py-16
+ mx-auto mb-32 bg-gray-100 text-gray-900 rounded-lg shadow-lg text-container animation" style="--order: 1;">
+    <div class="flex flex-col justify-between ">
+        <div>
+            <h2 class=" text-4xl lg:text-5xl font-bold leading-tight
+    ">Hi, I'm Maksim</h2>
+            <div class="text-gray-700 mt-8">A dedicated GoLang developer with a passion for crafting exceptional web
+                applications. I specialize in creating responsive and intuitive interfaces using HTMX and Tailwind CSS.
+                My goal
+                is to deliver clean and efficient code that ensures a seamless user experience.
+            </div>
         </div>
     </div>
-</section>
+    <div class="w-1/2 flex justify-center picture-container animation" style="--order: 2;">
+        <img src="/static/go-gopher-svgrepo-com.svg" alt="Go Gopher Image"
+             class="max-h-96 max-w-96 object-cover rounded-md">
+    </div>
+</div>
 
 <script>
     let observer = new IntersectionObserver((entries) => {
@@ -73,9 +54,7 @@
         });
     }, {threshold: 0.5}); // Callback will be invoked when 50% of the observed element is visible
 
-    let section = document.querySelector('.mb-12');
+    let section = document.querySelector('.max-w-screen-xl');
     observer.observe(section);
 </script>
 </body>
-
-</html>

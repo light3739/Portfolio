@@ -11,7 +11,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		"templates/index.html", "templates/header.html",
 		"templates/tools.html", "templates/about.html",
 		"templates/calculator.html",
-	)
+		"templates/contact.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
