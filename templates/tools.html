@@ -1,23 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <script defer src="https://cdn.jsdelivr.net/npm/manawave@0.11.1/dist/manawave.min.js"></script>
     <title>Tools</title>
+    <style>
+        .js-loading .manawave-marquee img {
+            animation-play-state: paused !important;
+        }
+
+        .manawave-marquee {
+            position: relative;
+            width: 100vw;
+            max-width: 100%;
+            height: 200px; /* Adjust the height as needed */
+            overflow: hidden;
+            display: flex; /* Add flex display */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+
+        .manawave-marquee div {
+            display: flex;
+            white-space: nowrap;
+            justify-content: center; /* Center horizontally */
+        }
+
+        .manawave-marquee img {
+            display: inline-block;
+            width: 200px; /* Adjust image width as needed */
+            height: 45px; /* Adjust image height as needed */
+            margin-right: 20px; /* Adjust margin between images as needed */
+            visibility: hidden;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 </head>
 
-<body class="bg-gray-800 text-gray-100 px-8 py-12">
+<body class="bg-gray-800 text-gray-100 px-8 py-12 js-loading">
 <div class="text-center w-full">
     <h1 class="pt-4 text-4xl lg:text-6xl">Tools</h1>
 </div>
-<div class="max-w-screen-xl mt-12  py-4 mb-32
- mx-auto bg-gray-100 text-gray-900 rounded-lg ">
 
-    <manawave-marquee speed="1" direction="360" autoplay>
-        <div class="rounded-full border-2 p-2 inline-block mr-2 bg-white text-gray-700">Docker</div>
-        <div class="rounded-full border-2 p-2 inline-block mr-2 bg-white text-gray-700">AWS</div>
-        <div class="rounded-full border-2 p-2 inline-block mr-2 bg-white text-gray-700">Linux</div>
-        <div class="rounded-full border-2 p-2 inline-block mr-2 bg-white text-gray-700">Network</div>
-
-    </manawave-marquee>
+<div class="manawave-marquee">
+    <div>
+        <img src="/static/01-symbol_primary-blue-docker-logo.svg" alt="Docker">
+        <img src="/static/Amazon_Web_Services_Logo.svg" alt="AWS">
+        <img src="/static/linux-icon.svg" alt="Linux">
+        <img src="/static/lightning-network.svg" alt="Network">
+        <img src="/static/Kubernetes_logo.svg" alt="K8S">
+    </div>
 </div>
 
+<script>
+    document.body.classList.add('js-loading');
+    window.addEventListener("load", showPage);
 
+    function showPage() {
+        document.body.classList.remove('js-loading');
+        var tl = gsap.timeline({repeat: 0});
+        tl.from(".manawave-marquee img", {
+            duration: 2,
+            x: "600%",
+            stagger: {
+                amount: 1, // Adjust the stagger amount based on your needs
+                from: "start"
+            },
+            onStart: function () {
+                document.querySelectorAll('.manawave-marquee img').forEach(function (img) {
+                    img.style.visibility = 'visible';
+                });
+            },
+            ease: "none"
+        });
+    }
+</script>
 </body>
+
+</html>
