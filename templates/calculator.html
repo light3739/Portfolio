@@ -11,7 +11,7 @@
 <div class="text-center w-full">
     <h1 class="text-4xl lg:text-6xl calculator-title">DevOps Service Rate Calculator</h1>
 </div>
-<div class="max-w-screen-xl mx-auto p-8 md:px-12 lg:px-16 xl:px-32 py-16 bg-gray-100 text-gray-900 rounded-lg shadow-lg calculator-container">
+<div class="max-w-screen-xl mb-20 mx-auto p-8 md:px-12 lg:px-16 xl:px-32 py-16 bg-gray-100 text-gray-900 rounded-lg shadow-lg calculator-container">
     <form id="rateForm" class="grid gap-4 grid-cols-1 md:grid-cols-2">
         <div>
             <label for="cloudServiceHours" class="block text-lg">Cloud Services (Rate: $50/hr)</label>
@@ -63,7 +63,7 @@
         document.getElementById('totalCost').textContent = `Total Cost: $${totalCost.toFixed(2)}`;
     });
 
-    document.body.addEventListener('htmx:afterOnLoad', function() {
+    document.body.addEventListener('htmx:afterOnLoad', function () {
         var closeModalButton = document.getElementById('closeModal');
         if (closeModalButton) {
             closeModalButton.addEventListener('click', function () {
@@ -72,25 +72,34 @@
         }
     });
 
-    gsap.registerPlugin(ScrollTrigger);
+    window.addEventListener('load', function () {
+        gsap.registerPlugin(ScrollTrigger);
 
-    gsap.from('.calculator-title', {
-        scrollTrigger: '.calculator-title',
-        opacity: 0,
-        x: -50,
-        duration: 2,
-        ease: 'power2.out'
-    });
+        gsap.from('.calculator-title', {
+            opacity: 0,
+            x: -50,
+            duration: 2,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.calculator-title',
+                start: 'top bottom',
+                toggleActions: 'play none none none'
+            }
+        });
 
-    gsap.from('.calculator-container', {
-        scrollTrigger: {
-            trigger: '.calculator-container',
-            start: 'top bottom'
-        },
-        opacity: 0,
-        x: 50,
-        duration: 2,
-        ease: 'power2.out'
+        gsap.from('.calculator-container', {
+            opacity: 0,
+            x: 50,
+            duration: 2,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.calculator-container',
+                start: 'top bottom',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        ScrollTrigger.refresh();
     });
 </script>
 

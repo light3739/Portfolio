@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Portfolio/api"
 	"html/template"
 	"net/http"
 )
@@ -27,6 +28,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	//apiKey := "your_api_key_here" // Replace with your actual API key TODO: fix AuthMiddleware
+	contactHandler := http.HandlerFunc(api.ContactFormHandler)
+	contactHandlerWithMiddleware := api.LoggingMiddleware(contactHandler)
+
+	http.Handle("/contact", contactHandlerWithMiddleware)
 	http.HandleFunc("/calculator-popup", func(w http.ResponseWriter, r *http.Request) {
 		tmpl, err := template.ParseFiles("templates/calculator_popup.html")
 		if err != nil {
