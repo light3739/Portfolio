@@ -11,7 +11,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		"templates/index.html", "templates/header.html",
 		"templates/tools.html", "templates/about.html",
 		"templates/calculator.html",
-		"templates/contact.html")
+		"templates/contact.html",
+		"templates/calculator_popup.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -26,6 +27,14 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	http.HandleFunc("/calculator-popup", func(w http.ResponseWriter, r *http.Request) {
+		tmpl, err := template.ParseFiles("templates/calculator_popup.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		tmpl.Execute(w, nil)
+	})
 
 	http.HandleFunc("/", indexHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
