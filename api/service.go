@@ -1,24 +1,17 @@
 package api
 
 import (
-	"github.com/joho/godotenv"
 	"log"
 	"net/smtp"
-	"os"
 )
 
 func sendEmail(form ContactForm, resultChan chan<- error) {
-	// Load environment variables
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := os.Getenv("SMTP_PORT")
-	smtpEmail := os.Getenv("SMTP_EMAIL")
-	smtpPassword := os.Getenv("SMTP_PASSWORD")
-	recipientEmail := os.Getenv("RECIPIENT_EMAIL")
+	// Use smtpConfig variables
+	smtpHost := smtpConfig.Host
+	smtpPort := smtpConfig.Port
+	smtpEmail := smtpConfig.Email
+	smtpPassword := smtpConfig.Password
+	recipientEmail := smtpConfig.RecipientEmail
 
 	// Set up authentication information.
 	auth := smtp.PlainAuth("", smtpEmail, smtpPassword, smtpHost)
@@ -31,10 +24,11 @@ func sendEmail(form ContactForm, resultChan chan<- error) {
 		"Message: " + form.Message)
 
 	// Send the email
-	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, smtpEmail, to, msg)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, smtpEmail, to, msg)
 	if err != nil {
 		log.Printf("Error sending email: %v\n", err)
 		resultChan <- err
+		return
 	}
 
 	log.Println("Email sent successfully")
