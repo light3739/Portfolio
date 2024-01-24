@@ -3,34 +3,33 @@ package main
 import (
 	"Portfolio/api"
 	"html/template"
+	"log"
 	"net/http"
+	"time"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	// Read the contents of index.html and header.html from the templates folder
-	tmpl, err := template.ParseFiles(
+var templates *template.Template
+
+func init() {
+	templates = template.Must(template.ParseFiles(
 		"templates/index.html", "templates/header.html",
 		"templates/tools.html", "templates/about.html",
 		"templates/calculator.html",
 		"templates/contact.html",
-		"templates/calculator_popup.html")
+		"templates/calculator_popup.html"))
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	err := templates.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
 	}
-
-	// Execute the template
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 }
 
 func main() {
-	//apiKey := "your_api_key_here" // Replace with your actual API key TODO: fix AuthMiddleware
+	api.LoadConfig()
 	contactHandler := http.HandlerFunc(api.ContactFormHandler)
-	contactHandlerWithMiddleware := api.LoggingMiddleware(contactHandler)
+	contactHandlerWithMiddleware := api.ErrorHandlingMiddleware(api.LoggingMiddleware(contactHandler))
 
 	http.Handle("/contact", contactHandlerWithMiddleware)
 	http.HandleFunc("/calculator-popup", func(w http.ResponseWriter, r *http.Request) {
@@ -39,10 +38,25 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		tmpl.Execute(w, nil)
+		if err := tmpl.Execute(w, nil); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	})
 
 	http.HandleFunc("/", indexHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.ListenAndServe(":8080", nil)
+	server := &http.Server{
+		Addr: ":8080",
+		// Set timeouts to avoid Slowlori	s attacks.
+		WriteTimeout: time.Second * 15,
+		ReadTimeout:  time.Second * 15,
+		IdleTimeout:  time.Second * 60,
+		Handler:      nil, // use http.DefaultServeMux
+	}
+
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
+
 }
