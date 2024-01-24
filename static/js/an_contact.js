@@ -1,10 +1,49 @@
-// Message
+document.body.addEventListener('htmx:beforeRequest', function (event) {
+    if (event.detail.elt === document.getElementById('contact-form')) {
+        var sendingDiv = document.getElementById('sending-notification');
+        var responseDiv = document.getElementById('contact-response');
+        // Hide response div if it's visible
+        if (responseDiv) {
+            gsap.to(responseDiv, {
+                opacity: 0,
+                x: 20,
+                duration: 0.5,
+                onComplete: function () {
+                    responseDiv.style.display = 'none';
+                }
+            });
+        }
+        document.getElementById('grid-first-name').value = '';
+        document.getElementById('grid-last-name').value = '';
+        document.getElementById('grid-email').value = '';
+        document.getElementById('grid-message').value = '';
+
+        // Show sending notification
+        if (sendingDiv) {
+            gsap.set(sendingDiv, {display: 'block', opacity: 0, x: 20});
+            gsap.to(sendingDiv, {opacity: 1, x: 0, duration: 0.5});
+        }
+    }
+});
+
 document.body.addEventListener('htmx:afterOnLoad', function (event) {
     if (event.detail.elt === document.getElementById('contact-form')) {
-        // Your code for handling the event triggered by the contact form
         var responseDiv = document.getElementById('contact-response');
+        var sendingDiv = document.getElementById('sending-notification');
+        // Hide sending notification
+        if (sendingDiv) {
+            gsap.to(sendingDiv, {
+                opacity: 0,
+                x: 20,
+                duration: 0.25,
+                onComplete: function () {
+                    sendingDiv.style.display = 'none';
+                }
+            });
+        }
+
+        // Show and animate the response div
         if (responseDiv) {
-            // Show and animate the response div
             gsap.set(responseDiv, {display: 'block', opacity: 0, x: 20});
             gsap.to(responseDiv, {opacity: 1, x: 0, duration: 0.5});
 
@@ -22,8 +61,6 @@ document.body.addEventListener('htmx:afterOnLoad', function (event) {
         }
     }
 });
-
-
 
 gsap.utils.toArray('input, textarea').forEach(field => {
     field.addEventListener('focus', () => {
