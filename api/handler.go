@@ -27,7 +27,10 @@ func ContactFormHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Form submitted successfully"))
+		if _, err := w.Write([]byte("Form submitted successfully")); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
 	} else {
 		// Handle error: only POST method is allowed
 		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
