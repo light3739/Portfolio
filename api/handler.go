@@ -18,7 +18,10 @@ func ContactFormHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Email and message are required", http.StatusBadRequest)
 			return
 		}
-		err := sendEmail(form)
+		resultChan := make(chan error)
+		go sendEmail(form, resultChan)
+
+		err := <-resultChan
 		if err != nil {
 			http.Error(w, "Error sending email", http.StatusInternalServerError)
 			return

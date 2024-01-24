@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func sendEmail(form ContactForm) error {
+func sendEmail(form ContactForm, resultChan chan<- error) {
 	// Load environment variables
 	err := godotenv.Load()
 	if err != nil {
@@ -34,9 +34,9 @@ func sendEmail(form ContactForm) error {
 	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, smtpEmail, to, msg)
 	if err != nil {
 		log.Printf("Error sending email: %v\n", err)
-		return err
+		resultChan <- err
 	}
 
 	log.Println("Email sent successfully")
-	return nil
+	resultChan <- nil
 }
