@@ -16,7 +16,9 @@ func init() {
 		"templates/tools.html", "templates/about.html",
 		"templates/calculator.html",
 		"templates/contact.html",
-		"templates/calculator_popup.html"))
+		"templates/calculator_popup.html",
+		"templates/projects.html",
+	))
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
