@@ -32,13 +32,31 @@
             margin-right: 20px; /* Adjust margin between images as needed */
             visibility: hidden;
         }
+
+        @media screen and (max-width: 768px) {
+            .manawave-marquee img {
+                width: 150px; /* Smaller width for tablet */
+                height: 33px; /* Smaller height for tablet */
+                margin-right: 15px; /* Adjusted margin for tablet */
+            }
+        }
+
+        /* Even smaller sizes for phones */
+        @media screen and (max-width: 480px) {
+            .manawave-marquee img {
+                width: 100px; /* Smaller width for phone */
+                height: 22px; /* Smaller height for phone */
+                margin-right: 10px; /* Adjusted margin for phone */
+            }
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 </head>
 
 <body class="bg-gray-800  text-gray-100 px-8 py-12 js-loading">
 <div class="text-center w-full">
-    <h1 class="pt-4 text-4xl lg:text-6xl ">Tools</h1>
+    <h1 id="tools-section" class="pt-4 text-4xl lg:text-6xl ">Tools</h1>
 </div>
 
 <div class="manawave-marquee mb-20">

@@ -11,7 +11,7 @@
 <body class="bg-gray-800 text-gray-100 font-sans">
 <div class="max-w-screen-xl mx-auto py-16 px-8">
     <div class="text-center w-full">
-        <h1 class="text-4xl lg:text-6xl project-title">Projects</h1>
+        <h1 id="projects-section" class="text-4xl lg:text-6xl project-title">Projects</h1>
     </div>
     <div class="mt-8 grid gap-8 grid-cols-1 md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 py-16 mx-auto mb-32 bg-gray-100 text-gray-900 rounded-lg shadow-lg project-card">
         <!-- Project 1 -->
@@ -23,6 +23,10 @@
                 robust AWS S3 integration, it ensures reliable storage and retrieval of files, making it a versatile
                 solution for showcasing various file-related functionalities.
             </p>
+
+            <a href="https://github.com/light3739/GoFileShare" target="_blank" class="mt-4 inline-block px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:text-lg">
+                Learn More
+            </a>
         </div>
         <div class="flex justify-center p-6">
             <img src="/static/project.png" alt="Project Screenshot"
@@ -30,60 +34,6 @@
         </div>
     </div>
 </div>
-<script>
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from('.project-title', {
-        duration: 1,
-        y: -50,
-        opacity: 0,
-        ease: 'power1.out',
-        scrollTrigger: {
-            trigger: '.project-title',
-            start: 'top 90%',
-            end: 'bottom 60%',
-            toggleActions: 'play none none none'
-        }
-    });
-
-    gsap.from('.project-card', {
-        duration: 1,
-        x: -200,
-        opacity: 0,
-        ease: 'power1.out',
-        scrollTrigger: {
-            trigger: '.project-card',
-            start: 'top 90%',
-            end: 'bottom 60%',
-            toggleActions: 'play none none none'
-        }
-    });
-
-    gsap.from('.project-image', {
-        duration: 1.5,
-        scale: 0.5,
-        opacity: 0,
-        ease: 'power1.out',
-        scrollTrigger: {
-            trigger: '.project-image',
-            start: 'top 80%',
-            end: 'bottom 60%',
-            toggleActions: 'play none none none'
-        }
-    });
-
-    gsap.from('.project-description', {
-        duration: 1,
-        x: 200,
-        opacity: 0,
-        ease: 'power1.out',
-        scrollTrigger: {
-            trigger: '.project-description',
-            start: 'top 90%',
-            end: 'bottom 60%',
-            toggleActions: 'play none none none'
-        }
-    });
-</script>
+<script src="/static/js/an_projects.js"></script>
 </body>
 </html>

@@ -1,40 +1,80 @@
-<!-- header.html -->
-<div class="header bg-blue-500 p-4 shadow-md">
+<head>
+    <title>Header</title>
+</head>
 
-    <div class="container mx-auto flex items-center">
-        <img class="logo" src="/static/Go-Logo_White.svg" alt="Go Gopher Image">
-        <div class="ml-auto">
-            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition">Tools
+<div class="header bg-blue-500 p-4 shadow-md">
+    <div class="container mx-auto flex items-center justify-between">
+        <img class="logo h-8 md:h-12 lg:h-14" src="/static/Go-Logo_White.svg" alt="Go Gopher Image">
+        <div class="flex overflow-x-auto">
+            <button id="btn-tools"
+                    class="text-xs md:text-sm lg:text-lg text-white font-bold hover:text-blue-800 focus:outline-none transition">
+                Tools
             </button>
-            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">About
+            <button id="btn-about"
+                    class="text-xs md:text-sm lg:text-lg text-white font-bold hover:text-blue-800 focus:outline-none transition ml-2 md:ml-4">
+                About
             </button>
-            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">
+            <button id="btn-projects"
+                    class="text-xs md:text-sm lg:text-lg text-white font-bold hover:text-blue-800 focus:outline-none transition ml-2 md:ml-4">
+                Projects
+            </button>
+            <button id="btn-calculator"
+                    class="text-xs md:text-sm lg:text-lg text-white font-bold hover:text-blue-800 focus:outline-none transition ml-2 md:ml-4">
                 Calculator
             </button>
-            <button class="text-white font-bold text-lg hover:text-blue-800 focus:outline-none transition ml-4">
+            <button id="btn-contact"
+                    class="text-xs md:text-sm lg:text-lg text-white font-bold hover:text-blue-800 focus:outline-none transition ml-2 md:ml-4">
                 Contact
             </button>
         </div>
     </div>
 </div>
-<style>
-    /* style.css */
-    .logo {
-        max-height: 50px;
-    }
 
-    .container {
-        align-items: center;
-    }
+<script>
+    function smoothScrollTo(elementId, duration) {
+        const targetElement = document.getElementById(elementId);
+        const targetPosition = targetElement.getBoundingClientRect().top;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
 
-    @media screen and (max-width: 768px) {
-        .logo {
-            max-height: 40px;
-            margin-right: 10px;
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = ease(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
         }
 
-        .header button {
-            font-size: 14px; /* Adjust this value as needed */
+        function ease(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
         }
+
+        requestAnimationFrame(animation);
     }
-</style>
+
+    document.getElementById('btn-tools').addEventListener('click', function() {
+        smoothScrollTo('tools-section', 250); // 2000 ms = 2 seconds
+    });
+
+    document.getElementById('btn-about').addEventListener('click', function() {
+        smoothScrollTo('about-section', 350); // 2000 ms = 2 seconds
+    });
+
+    document.getElementById('btn-projects').addEventListener('click', function() {
+        smoothScrollTo('projects-section', 700); // 2000 ms = 2 seconds
+    });
+
+    document.getElementById('btn-calculator').addEventListener('click', function() {
+        smoothScrollTo('calculator-section', 1000); // 2000 ms = 2 seconds
+    });
+
+    document.getElementById('btn-contact').addEventListener('click', function() {
+        smoothScrollTo('contact-section', 1300); // 2000 ms = 2 seconds
+    });
+
+</script>
+
