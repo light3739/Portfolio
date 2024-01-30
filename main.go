@@ -12,7 +12,7 @@ var templates *template.Template
 
 func init() {
 	templates = template.Must(template.ParseFiles(
-		"index.html", "templates/header.html",
+		"templates/index.html", "templates/header.html",
 		"templates/tools.html", "templates/about.html",
 		"templates/calculator.html",
 		"templates/contact.html",

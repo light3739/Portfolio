@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy go.mod and go.sum files to the workspace.
 COPY go.mod .
+COPY go.sum .
 
 # Download all dependencies.
 # They will be cached if the go.mod and go.sum files are not changed.
@@ -30,6 +31,9 @@ WORKDIR /app
 COPY --from=builder /app/main .
 COPY --from=builder /app/templates /app/templates
 COPY --from=builder /app/static /app/static
+
+# Include the .env file in the Docker image
+COPY .env .
 
 # Expose port 8080 to the outside world.
 EXPOSE 8080
